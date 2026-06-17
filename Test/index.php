@@ -7,18 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <form method="POST">
-        <input type="text" name="user_name" required>
-        <button type="submit">Send</button>
-    </form>
-
-    <?php
-        // If the form was submitted, process it
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $Name = htmlspecialchars($_POST['user_name']);
-            echo "<p class='info'>Hello, $Name!</p>";
-        }
-    ?>
     <?php
         //Personal Details
         $Name = "Drin";
