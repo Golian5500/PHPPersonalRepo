@@ -7,6 +7,9 @@
 </head>
 <body>
     <?php
+        function nl() {
+            echo "<br>";
+        }
         //Variables and Scope
         $x = 10;
         function test() {
@@ -14,7 +17,8 @@
             echo $x;
         }
         test();
-        echo "<br>";
+        nl();
+
 
         //Data types
         $string = "Hello World!";
@@ -26,26 +30,31 @@
         $foo = 10;
         $bar = (bool) $foo;
         echo $bar;
-        echo "<br>";
+        nl();
+
 
         //Print
         print("Hello World!");
-        echo "<br>";
+        nl();
+
 
         //Echo
         $my_var = "Hello World!";
         echo $my_var;
-        echo "<br>";
+        nl();
+
 
         //var_dump
         $myVar = array("Hello", "World!");
         var_dump($myVar);
-        echo "<br>";
+        nl();
+
 
         //print_r
         $array = array('apple', 'banana', 'cherry');
         print_r($array);
-        echo "<br>";
+        nl();
+
 
         //Constants
         define("PI", 3.141);
@@ -54,7 +63,8 @@
         //Indexed arrays
         $books = ["The Great Gatsby", "Mody Dick", "To Kill a Mockingbird"];
         echo $books[0];
-        echo "<br>";
+        nl();
+
 
         //Associative Arrays
         $ages = [
@@ -63,7 +73,8 @@
             "Mary" => 27
         ];
         echo $ages["John"];
-        echo "<br>";
+        nl();
+
 
         //Multi-dimensional Arrays
         $users = [
@@ -79,7 +90,8 @@
         } else {
             echo " The number is less than 5";
         }
-        echo "<br>";
+        nl();
+
 
         //switch
         $fruit = "apple";
@@ -93,7 +105,8 @@
             default:
                 echo "Invalid choice.";
         }
-        echo "<br>";
+        nl();
+
 
         //match
         $message = match (100) {
@@ -105,46 +118,54 @@
         //Loops
         for ($i = 0; $i < 5; $i++) {
             echo $i;
-            echo "<br>";
+            nl();
         }
+
 
         //Functions
         function greet($name) {
             return "Hello, " . $name;
         }
         echo greet("John");
-        echo "<br>";
+        nl();
         
+
         //Parameters / Return Values
         function addNumbers($num1, $num2) {
             $sum = $num1 + $num2;
             return $sum;
         }
         echo addNumbers(3,4);
-        echo "<br>";
+        nl();
+
 
         //Default / Optional Params
         function greet2($name = "guest") {
             echo "Hello, $name!";
         }
         greet2();
-        echo "<br>";
-        greet2("John");
-        echo "<br>";
+        nl();
+        greet2("
+        John");
+        nl();
+
 
         //Named Arguments
         $a = array_fill(start_index: 0, count: 100, value: 50);
         echo $a[0];
-        echo "<br>";
+        nl();
+
 
         //Anonymous Functions
         $greet = function($name) {
             printf("Hello %s\r\n", $name);
         };
         $greet('World');
-        echo "<br>";
-        $greet('PHP');
-        echo "<br>";
+        nl();
+        $greet('
+        PHP');
+        nl();
+
 
         //Recursion
         function countDown($count) {
@@ -154,13 +175,135 @@
             }
         }
         countDown(5);
-        echo "<br>";
+        nl();
+
 
         //Variadic Functions
         function sum(...$numbers) {
             return array_sum($numbers);
         }
         echo sum(1, 2, 3, 4);
+        nl();
+
+
+        //require
+        require 'basicFunctions.php';
+        nl();
+
+
+        //require_once
+        require_once('somefile.php');
+        nl();
+
+
+        //include
+        include 'filename.php';
+        nl();
+
+
+        //include_once
+        include_once 'database.php';
+        nl();
+        if (class_exists('Database')) {
+            $db = new Database();
+        } else {
+            echo "Database class does not exist.<br>";
+        }
+        
+        //Reading files
+        $file = fopen("example.txt", "r");
+        if ($file) {
+            while (($line = fgets($file)) !== false) {
+                echo $line;
+            }
+            fclose($file);
+        } else {
+            echo "Errror opening file<br>";
+        }
+
+        //Writing files efficient
+        $fileWrite = "data.txt";
+        $newData = "New Data\n";
+        file_put_contents($fileWrite, $newData, FILE_APPEND | LOCK_EX);
+        nl();
+
+
+        //File Permissions
+        echo is_readable($fileWrite) ? "readable" : "not_readable";
+        nl();
+        echo is_writable($fileWrite) ? "writable" : "not_writable";
+        nl();
+        echo chmod($fileWrite, 0644) ? "chmod" : "no_chmod";
+        nl();
+        
+        //CSV Processing
+        if (($handle = fopen("sample.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                print_r($data);
+            }
+            fclose($handle);
+        }
+
+        //JSON Processing
+        $dataJSON = array('a' => 1, 'b' => 2, 'c' => 3);
+        $json = json_encode($dataJSON);
+        echo $json;
+        nl();
+        $decoded = json_decode($json, true);
+        print_r($decoded);
+
+        //XML Processing
+        $xml_data = "hello";
+        $parser = xml_parser_create();
+        xml_set_element_handler($parser, "startElement", "endElement");
+        xml_parse($parser, $xml_data);
+        xml_parser_free($parser);
+
+        //$_GET
+        nl();
+        echo "Name is: " . $_GET['fname'];
+        nl();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            echo "Last name is: " . $_POST["lname"];
+        }
+        nl();
+
+        //$_REQUEST
+        $name = $_REQUEST['lname'];
+        echo $name;
+        nl();
+        echo 'Your IP is: ' . $_SERVER['REMOTE_ADDR'];
+        nl();
+        
+        //Cookies;
+        setcookie("user", "John Doe", time() + (86400 * 30), "/");
+        if (isset($_COOKIE['user'])) {
+            echo "The cookie value is: " . $_COOKIE['user'];
+        } else {
+            echo "Cookie not found or has expired.";
+        }
+        nl();
+
+        //Sessions
+        session_start();
+        $_SESSION['username'] = "Drin";
+        echo $_SESSION['username'];
+            
+
+        nl();
+        if (class_exists("mysqli")) {
+            echo "mysqli class does exist";
+        } else {
+            echo "mysqli class doesn't exist";
+        }
     ?>
+    <form method="get" action="index.php">
+        Name: <input type="text" name="fname">
+        <input type="submit">
+    </form>
+    <form method="POST" action="index.php">
+        Last Name: <input type="text" name="lname">
+        <input type="submit">
+    </form>
 </body>
 </html>
