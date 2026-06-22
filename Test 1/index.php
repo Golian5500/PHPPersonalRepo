@@ -268,6 +268,17 @@
         }
         nl();
 
+        ?>
+        <form method="get" action="index.php">
+            Name: <input type="text" name="fname">
+            <input type="submit">
+        </form>
+        <form method="POST" action="index.php">
+            Last Name: <input type="text" name="lname">
+            <input type="submit">
+        </form>
+    <?php
+
         //$_REQUEST
         $name = $_REQUEST['lname'];
         echo $name;
@@ -289,21 +300,8 @@
         $_SESSION['username'] = "Drin";
         echo $_SESSION['username'];
             
-
-        nl();
-        if (class_exists("mysqli")) {
-            echo "mysqli class does exist";
-        } else {
-            echo "mysqli class doesn't exist";
-        }
+        
+        
     ?>
-    <form method="get" action="index.php">
-        Name: <input type="text" name="fname">
-        <input type="submit">
-    </form>
-    <form method="POST" action="index.php">
-        Last Name: <input type="text" name="lname">
-        <input type="submit">
-    </form>
 </body>
 </html>
